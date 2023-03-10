@@ -1,0 +1,8 @@
+mutation{
+	editCustomer(id: "qC1iMug", name: "jsdno0", email: "csdnum0@gamil.com", age: 33) {
+    id,
+    name,
+    email,
+    age
+  }
+}

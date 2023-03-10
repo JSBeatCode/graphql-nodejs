@@ -1,0 +1,5 @@
+1. 이 위치에서 cmd 창 2개 열고 각각 아래 명령어를 친다.
+2. npm run dev
+3. npm run json
+4. localhost:4000/graphql 브라우저 창을 연다
+5. graphql-testcase에 있는 내용들을 하나씩 테스트 한다.

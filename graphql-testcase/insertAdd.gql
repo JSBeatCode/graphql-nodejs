@@ -1,0 +1,8 @@
+mutation{
+	addCustomer(name: "jsd", email: "jsdno0@naver.com", age: 34) {
+    id,
+    name,
+    email,
+    age
+  }
+}
