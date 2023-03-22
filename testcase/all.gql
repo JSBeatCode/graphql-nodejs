@@ -1,5 +1,5 @@
-mutation{
-    del(id: "VT1F5yL") {
+{
+    items{
         id,
         name,
         price

@@ -1,7 +1,0 @@
-mutation{
-	add(name: "item1", price: 4000) {
-    id,
-    name,
-    price
-  }
-}

@@ -1,0 +1,7 @@
+mutation{
+    edit(id: "EA5gI54", name: "updated-item", price: 0000){
+        id,
+        name,
+        price
+    }
+}

@@ -1,7 +1,0 @@
-mutation{
-	editm(id: "1", name: "updated-clothes", price: 2000) {
-    id,
-    name,
-    price
-  }
-}

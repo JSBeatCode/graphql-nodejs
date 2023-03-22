@@ -1,0 +1,5 @@
+mutation{
+    del(id: "EA5gI54"){
+        id
+    }
+}
