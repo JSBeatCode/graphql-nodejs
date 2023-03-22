@@ -1,121 +1,91 @@
 const { default: axios } = require('axios');
-const {
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLInt,
-    GraphQLSchema,
-    GraphQLList,
-    GraphQLNonNull,
-    GraphQLInputObjectType
-} = require('graphql');
+
+const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema, GraphQLList, GraphQLNonNull } = require('graphql');
 
 //Hardcoded data
-// const customers = [
-//     {id:'1', name:'John Doe', email:'John@naver.com', age:34},
-//     {id:'2', name:'Sarah Will', email:'Sarah@naver.com', age:39},
-//     {id:'3', name:'Steve Smith', email:'Steve@naver.com', age:44}
+// const items = [
+//     {id:'1', name:'John Doe', email:'John@naver.com', price:34},
+//     {id:'2', name:'Sarah Will', email:'Sarah@naver.com', price:39},
+//     {id:'3', name:'Steve Smith', email:'Steve@naver.com', price:44}
 // ]
 
 //고객 테이블 정의
-const CustomerType = new GraphQLObjectType({
-    name: 'Customer',
+const ItemType = new GraphQLObjectType({
+    name: 'Item',
     fields: () => ({
         id: {type:GraphQLString},
         name: {type:GraphQLString},
-        email: {type:GraphQLString},
-        age: {type:GraphQLInt}
+        price: {type:GraphQLInt}
     })
 });
 
 //요청시 결과를 생성할 graphql 함수
+//RootQuery는 GraphiQL 웹 페이지에서 송수신 query를 중괄호 '{}'로 시작.
+//'{}' 안의 내용이, fields 값 items이나 item과 둘 중 매치가 되면 그 하나를 읽어서 아래의 resolve 메소드를 호출함.
 const RootQuery = new GraphQLObjectType({
     name:'RootQueryType',
     fields: {
-        customer: {
-            type:CustomerType,
+        item: {
+            type:ItemType,
             args: {
                 id: {type:GraphQLString}
             },
             resolve(parentValue, args){
-                
-                // for(let i = 0; i < customers.length; i++){
-                //     if(customers[i].id == args.id){
-                //         return customers[i];
-                //     }
-                // }
-                return axios.get(`http://localhost:3456/customers/${args.id}`)
+                return axios.get(`http://localhost:3456/items/${args.id}`)
                 .then(res => res.data);
             },
-            inputSample: {
-                // {
-                //     customer(id:"3"){
-                //       name,
-                //       email,
-                //       age
-                //     }
-                //   }
-            }
         },
-        customers: {
-            type: new GraphQLList(CustomerType),
+        items: {
+            type: new GraphQLList(ItemType),
             resolve(parentValue, args){
-                return axios.get(`http://localhost:3456/customers`)
+                return axios.get(`http://localhost:3456/items`)
                     .then(res => res.data);
-            },
-            inputSample: {
-                // {
-                //     customers{
-                //       id
-                //     }
-                //   }
             }
         }
     }
 });
 
 // Mutation
+// mutation은 GraphiQL 웹 페이지에서 'mutation{}'
 const mutation = new GraphQLObjectType({
     name : 'Mutation',
     fields: {
-        addCustomer : {
-            type: CustomerType,
+        add : {
+            type: ItemType,
             args:{
                 name: {type: new GraphQLNonNull(GraphQLString)},
-                email: {type: new GraphQLNonNull(GraphQLString)},
-                age: {type: new GraphQLNonNull(GraphQLInt)}
+                price: {type: new GraphQLNonNull(GraphQLInt)}
             },
             resolve(parentValue, args){
-                return axios.post('http://localhost:3456/customers', {
+                return axios.post('http://localhost:3456/items', {
                     name: args.name,
-                    email: args.email,
-                    age: args.age
+                    price: args.price
                 })
                 .then(res => res.data);
             }
         },
-        deleteCustomer : {
-            type: CustomerType,
+        edit : {
+            type: ItemType,
+            args:{
+                id: {type: new GraphQLNonNull(GraphQLString)},
+                name: {type: GraphQLString},
+                price: {type: GraphQLInt}
+            },
+            resolve(parentValue, args){
+                return axios.patch(`http://localhost:3456/items/${args.id}`, args)
+                .then(res => res.data);
+            }
+        },
+        del : {
+            type: ItemType,
             args:{
                 id: {type: new GraphQLNonNull(GraphQLString)}
             },
             resolve(parentValue, args){
-                return axios.delete(`http://localhost:3456/customers/${args.id}`)
+                return axios.delete(`http://localhost:3456/items/${args.id}`)
                 .then(res => res.data);
             }
-        },
-        editCustomer : {
-            type: CustomerType,
-            args:{
-                id: {type: new GraphQLNonNull(GraphQLString)},
-                name: {type: GraphQLString},
-                email: {type: GraphQLString},
-                age: {type: GraphQLInt}
-            },
-            resolve(parentValue, args){
-                return axios.patch(`http://localhost:3456/customers/${args.id}`, args)
-                .then(res => res.data);
-            }
-        },
+        }
     }
 });
 

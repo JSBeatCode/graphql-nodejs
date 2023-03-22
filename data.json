@@ -1,34 +1,30 @@
 {
-  "customers": [
+  "items": [
     {
       "id": "1",
-      "name": "John Doe",
-      "email": "john@gmail.com",
-      "age": 36
+      "name": "clothes",
+      "price": 1000
     },
     {
       "id": "2",
-      "name": "Keith Wilson",
-      "email": "kieth@gmail.com",
-      "age": 50
+      "name": "electronics",
+      "price": 5000
     },
     {
       "id": "3",
-      "name": "Tom Jones",
-      "email": "tom@gmail.com",
-      "age": 23
+      "name": "gears",
+      "price": 2300
     },
     {
-      "id": "5",
-      "name": "Cho",
-      "email": "csdnum0@gmail.com",
-      "age": 34
+      
+      "id": "4",
+      "name": "arts",
+      "price": 3400
     },
     {
-      "name": "Harry White",
-      "email": "harry@gmail.com",
-      "age": 34,
-      "id": "rytP7hhUW"
+      "id": "3",
+      "name": "beauty goods",
+      "price": 1000
     }
   ]
 }

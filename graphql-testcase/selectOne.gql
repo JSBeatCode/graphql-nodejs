@@ -1,8 +1,7 @@
 {
-	customer(id: "1") {
+	item(id: "1") {
     id,
     name,
-    email,
-    age
+    price
   }
 }

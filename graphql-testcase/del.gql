@@ -1,0 +1,7 @@
+mutation{
+    del(id: "oNi5Bvh") {
+        id,
+        name,
+        price
+    }
+}

@@ -1,8 +1,7 @@
 {
-	customers {
+	items {
     id,
     name,
-    email,
-    age
+    price
   }
 }
