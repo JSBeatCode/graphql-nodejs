@@ -1,5 +1,5 @@
 mutation{
-    del(id: "oNi5Bvh") {
+    del(id: "VT1F5yL") {
         id,
         name,
         price
